@@ -89,3 +89,6 @@ function keyPressed() {
   }
 }
 
+document.addEventListener('keydown',(e) =>{
+  console.log(keycode)
+})
