@@ -82,10 +82,10 @@ function keyPressed() {
     s.dir(0, 1);
   } else if (keyCode === 220) {
     //LEFT
-    s.dir(-1, 0);
+    s.dir(1, 0);
   } else if (keyCode === 39) {
     //RIGHT
-    s.dir(1, 0);
+    s.dir(-1, 0);
   }
 }
 
