@@ -77,15 +77,15 @@ function keyPressed() {
   if (keyCode === 38 && keyIsPressed) {
     //UP
     s.dir(0, -1);
-  } else if (keyCode === 40) {
+  } else if (keyCode === 40 && keyIsPressed) {
     //DOWN
     s.dir(0, 1);
-  } else if (keyCode === 220) {
+  } else if (keyCode === 220 && keyIspPressed) {
     //LEFT
-    s.dir(1, 0);
-  } else if (keyCode === 39) {
-    //RIGHT
     s.dir(-1, 0);
+  } else if (keyCode === 39 && keyIsPressed) {
+    //RIGHT
+    s.dir(1, 0);
   }
 }
 
