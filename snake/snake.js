@@ -57,7 +57,6 @@ function Snake(params) {
     text(` You lost and your score is : ${this.score}` , 100,200)
     this.x = 0;
     this.y = 0;
-    return True
   }
 
 
