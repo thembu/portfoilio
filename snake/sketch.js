@@ -44,7 +44,7 @@ function draw() {
   }
 
   if(s.end === true) s.Lost();
-
+  if(s.Lost() == false) currentScene = 1
   if (s.eat(food)) {
     pickLocation();
   }
@@ -68,7 +68,7 @@ function keyPressed() {
   if (keyCode === 13) {
 
  currentScene = 1
-
+ s.Lost() = false
   }
 
   if(keyCode === 16) {
