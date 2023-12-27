@@ -69,10 +69,9 @@ function keyPressed() {
  currentScene = 1
   }
 
-  if(keyCode === 32) {
-  noLoop()
-  }
+if(keyCode === 16) {
   
+}  
   if (keyCode === 38 && keyIsPressed) {
     //UP
     s.dir(0, -1);
