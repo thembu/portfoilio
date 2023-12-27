@@ -86,5 +86,5 @@ function keyPressed() {
     //RIGHT
     s.dir(1, 0);
   }
-}
+
 
