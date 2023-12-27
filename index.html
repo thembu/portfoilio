@@ -1,88 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Title</title>
-    <style>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Title</title>
+  <style>
+    * {
+      /* COLORING */
+      --light: #fff;
+      --dark: #3e3e3e;
+      --darker: #2d2d2d;
+      --accent: #a71bbf;
+    }
+
+    body {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      background-color: whitesmoke;
+      color: var(--darker);
+      font-family: "Arial";
+      font-family: Arial, sans-serif;
+    }
+
+    main {
+      display: flex;
+      justify-content: center;
+    }
+
+    .avatar-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+      /* Add margin-top to center the avatar */
+      width: 300px;
+      /* Adjust the size of the avatar */
+      height: 300px;
+      /* Adjust the size of the avatar */
+      border-radius: 50%;
+      /* Creates a circular shape */
+      overflow: hidden;
+      /* Ensures the image doesn't exceed the border-radius */
+      background-color: #ccc;
+      /* Fallback background color */
+    }
+
+    .avatar-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* Ensures the image covers the entire container */
+      object-position: center;
+      /* Centers the image within the container */
+    }
+
+    header {
+      background-color: var(--light);
+      padding: 2px;
+      padding-bottom: 0;
+      color: var(--darker);
+    }
+
+    #head {
+      padding: 2rem 0;
+    }
+
+    #navigation {
+      padding: 0px;
+      height: 140px;
+      display: flex;
+      justify-content: center;
+      background-color: #333;
+
+    }
+
+    #navigation a {
+      color: var(--light);
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0);
+      display: flex;
+      justify-content: center;
+      position: ab;
+
+    }
+
+    #navigation a:hover {
+      /* border-bottom: 1px solid var(--darker);*/
+      transform: scale(1.05);
+    }
+
+    #home {
+      padding: 2rem 0;
+      text-align: center;
+    }
+
+    #about {
+      background-color: whitesmoke;
+      text-align: center;
+    }
 
 
 
-    </style>
-    <script src="p5.dom.min.js"></script>
-    <script src="p5.sound.min.js"></script>
-    <script src="p5.js"></script>
-  </head>
-  <body>
-    <link rel="stylesheet" href="style.css">
-    <script src="snake.js"></script>
 
-    <header>
-     
+    #footer {
+      margin-top: 2rem;
+      background-color: whitesmoke;
+      padding: 15px;
+      color: var(--darker);
+    }
 
-      <div id="navigation">
-        <h1>Portfolio of  Rakhivhani Thembuluwo</h1>
-        <a href="#home">HOME</a>
-        <a href="#about">ABOUT ME</a>
-        <a href="./projects.html"> MY PROJECTS</a>
-      </div>
-    </header>
+    h3 {
+      border-left: 5px solid var(--darker);
+      padding-left: 10px;
+    }
 
-    <div id="home">
-      <div class="container">
-        <p>
-          welcome to my portfolio here you can find out more about me and my programming journey.<br>
-          you will read about how i started programming and towards the end you will see a couple of
-          projects i have worked on. 
-        </p>
-      </div>
+    ol {
+      padding-top: 70px;
+
+    }
+
+    h1 {
+      padding: 0;
+      color: var(--light);
+      font-family: cursive;
+    }
+
+    #sidebar {
+      width: 250px;
+      height: 100vh;
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      position :absolute;
+      top: 0;
+      left: 0;
+    }
+
+    #skills {
+      margin-top: 20px;
+    }
+
+    .skill {
+      margin-bottom: 10px;
+    }
+
+    .skill label {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .stars {
+      display: inline-block;
+      color: #ffd700;
+    }
+
+    .star {
+      font-size: 20px;
+      margin-right: 5px;
+    }
+
+
+    /* Rest of your styles remain unchanged */
+  </style>
+  <script src="p5.dom.min.js"></script>
+  <script src="p5.sound.min.js"></script>
+  <script src="p5.js"></script>
+</head>
+
+<body>
+  <link rel="stylesheet" href="style.css">
+  <script src="snake.js"></script>
+
+  <header>
+    <div id="navigation">
+      <h1>Portfolio of Rakhivhani Thembuluwo</h1>
+      <a href="#home">HOME</a>
+      <a href="#about">ABOUT ME</a>
+      <a href="./projects.html">MY PROJECTS</a>
     </div>
-    
-    <br>
-    <div id="about">
-      <div class="container">
-        <h3>About me</h3>
+  </header>
 
-        <div class="row">
-          <div class="c6 s12 m6 l6">
-            <p style = 'font-weight: 34px'>
+  <div id="sidebar">
+    <h2>Skills</h2>
+    <div id="skills">
+      <div class="skill">
+        <label>JavaScript</label>
+        <div class="stars">
+          <span class="star">&#9733;</span>
+          <span class="star">&#9733;</span>
+          <span class="star">&#9733;</span>
+          <span class="star">&#9733;</span>
+          <span class="star">&#9734;</span>
+        </div>
+      </div>
 
-                My name is <em>Rakhivhani Thembuluwo</em> and im 15 years old with two years worth of
-                experience in the field of computer programming , i know about 3 programming languages
-                namely <em>Javascript</em>,<em>Python</em> and <em>Java</em>. I have done projets in web development,
-                machine learning and also some terminal appplications  and  i started off by learning  an animation 
-                library known as <span style="text-decoration: underline;">processing</span> 
-                
-                I have set a lot of goals for myself , such as being a Software Developer 
-                and hopefully starting my own company one day.
+      <div class="skill">
+        <label>React</label>
+        <div class="stars">
+          <span class="star">&#9733;</span>
+          <span class="star">&#9733;</span>
+          <span class="star">&#9733;</span>
+          <span class="star">&#9734;</span>
+          <span class="star">&#9734;</span>
+        </div>
+      </div>
 
-                The things i hope to achieve this year are : 
-                   
-                <br>
+      <div class="skill">
+        <label>c++</label>
+        <div class="stars">
+          <span class="star">&#9733;</span>
+          <span class="star">&#9733;</span>
+          <span class="star">&#9734;</span>
+          <span class="star">&#9734;</span>
+          <span class="star">&#9734;</span>
+        </div>
+      </div>
 
-                <ol>
-                  <li>MAKE A FULL STACK WEB APP</li>
-                    <img src="/full_stack.png" alt="" width="500">
-                  <li>USE AN API TO ORDER FOOD OR PURCHASE SOMETHING</li>
-                  <img src="/api.jpg" alt="" width="500">
-                  <li>LEARN A LITTLE BIT OF MACHINE LEARNING</li>
-                  <img src="/ml.jpg" alt="" width="500">
-                </ol>
+      <div class="skill">
+        <label>Python</label>
+        <div class="stars">
+          <span class="star">&#9733;</span>
+          <span class="star">&#9733;</span>
+          <span class="star">&#9733;</span>
+          <span class="star">&#9734;</span>
+          <span class="star">&#9734;</span>
+        </div>
+      </div>
 
+      <div class="skill">
+        <label>Flutter</label>
+        <div class="stars">
+          <span class="star">&#9733;</span>
+          <span class="star">&#9733;</span>
+          <span class="star">&#9733;</span>
+          <span class="star">&#9734;</span>
+          <span class="star">&#9734;</span>
+        </div>
+      </div>
 
-            </p>
-          </div>
+      <div class="skill">
+        <label>Machine learning</label>
+        <div class="stars">
+          <span class="star">&#9733;</span>
+          <span class="star">&#9733;</span>
+          <span class="star">&#9733;</span>
+          <span class="star">&#9734;</span>
+          <span class="star">&#9734;</span>
         </div>
       </div>
     </div>
+  </div>
 
-    <div id="footer">
-      <div class="container">
-        &copy; 2020 Your Name, All rights reserved.
-        <span style="float: right; color: #5e5e5e"
-          >Made with <span style="color: red">😑</span> by
-          Tubitor.com</span
-        >
-      </div>
+  <main>
+    <div class="avatar-container" style="width: 200px ;  height:200px">
+      <img src="images\WhatsApp Image 2023-12-27 at 18.28.46.jpeg" alt="Avatar">
     </div>
-  </body>
+  </main>
+
+  <!-- The rest of your HTML content -->
+
+</body>
+
 </html>
