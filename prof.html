@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thembuluwo Rakhivhani — Full Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B1D35;
+  --navy2:#142644;
+  --navy3:#1E3A5F;
+  --gold:#C8A84B;
+  --gold2:#E2C97A;
+  --cream:#F7F4EE;
+  --cream2:#EDEAE2;
+  --white:#FFFFFF;
+  --text1:#0B1D35;
+  --text2:#3A4E68;
+  --text3:#7A8FA8;
+  --border:rgba(11,29,53,0.10);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'IBM Plex Sans',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+  --r:6px;
+  --rl:12px;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--text1);line-height:1.65;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:rgba(247,244,238,0.94);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 6vw;height:62px;
+}
+.nav-brand{font-family:var(--serif);font-size:17px;color:var(--navy);letter-spacing:-0.2px}
+.nav-brand span{color:var(--gold)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--text2);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--navy)}
+.nav-cta{background:var(--navy);color:var(--cream)!important;padding:8px 20px;border-radius:var(--r);font-size:12px!important;letter-spacing:0.08em!important;transition:background 0.2s!important}
+.nav-cta:hover{background:var(--navy3)!important}
+
+/* HERO */
+#hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;padding:100px 6vw 60px;gap:60px;
+  position:relative;overflow:hidden;
+}
+#hero::before{
+  content:'';position:absolute;top:-120px;right:-80px;
+  width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle,rgba(200,168,75,0.10) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--navy);color:var(--gold2);
+  font-family:var(--mono);font-size:11px;letter-spacing:0.12em;
+  padding:5px 14px;border-radius:100px;margin-bottom:24px;
+}
+.hero-tag::before{content:'●';font-size:8px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+h1{font-family:var(--serif);font-size:clamp(36px,5vw,60px);font-weight:800;line-height:1.08;color:var(--navy);letter-spacing:-1px;margin-bottom:8px}
+h1 .accent{color:var(--gold)}
+.hero-sub{font-family:var(--serif);font-size:clamp(18px,2.5vw,26px);font-weight:700;color:var(--text2);margin-bottom:20px;letter-spacing:-0.3px}
+.hero-bio{font-size:15px;color:var(--text2);max-width:480px;margin-bottom:32px;line-height:1.75}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px}
+.btn-primary{background:var(--navy);color:var(--cream);padding:12px 26px;border-radius:var(--r);font-size:13px;font-weight:500;text-decoration:none;letter-spacing:0.04em;transition:background 0.2s,transform 0.15s;display:inline-block}
+.btn-primary:hover{background:var(--navy3);transform:translateY(-1px)}
+.btn-outline{border:1.5px solid var(--navy);color:var(--navy);padding:12px 26px;border-radius:var(--r);font-size:13px;font-weight:500;text-decoration:none;letter-spacing:0.04em;transition:all 0.2s;display:inline-block}
+.btn-outline:hover{background:var(--navy);color:var(--cream);transform:translateY(-1px)}
+.hero-links{display:flex;gap:20px}
+.social-link{display:flex;align-items:center;gap:7px;color:var(--text2);text-decoration:none;font-size:13px;font-weight:500;transition:color 0.2s}
+.social-link:hover{color:var(--navy)}
+.social-link svg{width:18px;height:18px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+.hero-right{display:flex;flex-direction:column;gap:16px;animation:fadeUp 0.8s 0.2s both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.win-badge{
+  background:var(--navy);border-radius:var(--rl);padding:20px 24px;
+  display:flex;align-items:center;gap:16px;
+  border:1px solid rgba(200,168,75,0.3);
+}
+.trophy{font-size:32px;flex-shrink:0}
+.win-title{font-family:var(--serif);font-size:17px;color:var(--gold2);font-weight:700}
+.win-sub{font-size:12px;color:rgba(255,255,255,0.55);margin-top:4px}
+.stat-card{
+  background:var(--white);border:1px solid var(--border);border-radius:var(--rl);
+  padding:20px 24px;display:flex;align-items:center;gap:16px;
+  transition:box-shadow 0.2s,transform 0.2s;
+}
+.stat-card:hover{box-shadow:0 8px 32px rgba(11,29,53,0.10);transform:translateY(-2px)}
+.stat-icon{width:44px;height:44px;border-radius:var(--r);background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.stat-icon svg{width:22px;height:22px;stroke:var(--gold);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.stat-num{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--navy);line-height:1}
+.stat-lbl{font-size:12px;color:var(--text3);margin-top:3px;font-weight:400}
+
+/* SECTIONS */
+section{padding:90px 6vw}
+section:nth-child(even){background:var(--cream2)}
+.sec-label{font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.sec-title{font-family:var(--serif);font-size:clamp(28px,3.5vw,42px);font-weight:700;color:var(--navy);letter-spacing:-0.5px;margin-bottom:48px}
+.sec-title span{color:var(--gold)}
+
+/* PROJECTS GRID */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
+.proj-card{
+  background:var(--white);border:1px solid var(--border);border-radius:var(--rl);
+  overflow:hidden;display:flex;flex-direction:column;
+  transition:box-shadow 0.25s,transform 0.25s;
+}
+.proj-card:hover{box-shadow:0 12px 40px rgba(11,29,53,0.12);transform:translateY(-4px)}
+.proj-card.winner{border-color:rgba(200,168,75,0.35)}
+.proj-head{padding:22px 22px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.proj-ico{width:42px;height:42px;border-radius:var(--r);background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.proj-ico svg{width:20px;height:20px;stroke:var(--gold2);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.proj-ico.gold{background:var(--gold)}
+.proj-ico.gold svg{stroke:var(--navy)}
+.proj-ext-links{display:flex;gap:7px}
+.ext-link{
+  width:32px;height:32px;border-radius:var(--r);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text2);text-decoration:none;transition:background 0.2s,color 0.2s;
+}
+.ext-link:hover{background:var(--navy);color:var(--cream)}
+.ext-link svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.proj-body{padding:14px 22px 22px;flex:1;display:flex;flex-direction:column}
+.proj-name{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.proj-desc{font-size:13.5px;color:var(--text2);line-height:1.7;flex:1;margin-bottom:16px}
+.tag-row{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:0.05em;background:var(--cream);border:1px solid var(--border);color:var(--text2);padding:3px 10px;border-radius:100px}
+.tag.live{background:var(--navy);color:var(--gold2);border-color:transparent}
+.tag.prod{background:#0d4f2e;color:#7EE7B0;border-color:transparent}
+.tag.win{background:var(--gold);color:var(--navy);border-color:transparent;font-weight:600}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:7px;top:6px;bottom:6px;width:1.5px;background:linear-gradient(to bottom,var(--gold),var(--border))}
+.tl-item{position:relative;margin-bottom:44px}
+.tl-item:last-child{margin-bottom:0}
+.tl-dot{position:absolute;left:-29px;top:6px;width:15px;height:15px;border-radius:50%;background:var(--white);border:2px solid var(--gold)}
+.tl-dot.now{background:var(--gold)}
+.tl-date{font-family:var(--mono);font-size:11px;letter-spacing:0.08em;color:var(--text3);margin-bottom:6px;text-transform:uppercase}
+.tl-role{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--navy);margin-bottom:2px}
+.tl-org{font-size:13px;font-weight:500;color:var(--gold);margin-bottom:12px}
+.tl-list{list-style:none;display:flex;flex-direction:column;gap:7px}
+.tl-list li{font-size:13.5px;color:var(--text2);padding-left:18px;position:relative;line-height:1.6}
+.tl-list li::before{content:'→';position:absolute;left:0;color:var(--gold);font-size:12px;top:2px}
+
+/* SKILLS */
+.skills-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.skill-grp{background:var(--white);border:1px solid var(--border);border-radius:var(--rl);padding:20px 22px}
+.skill-grp-title{font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:13px}
+.skill-list{display:flex;flex-wrap:wrap;gap:7px}
+.skill-pill{font-size:12px;font-weight:500;color:var(--navy);background:var(--cream);border:1px solid var(--border);padding:4px 12px;border-radius:100px}
+
+/* ARTICLES */
+.articles-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px}
+.art-card{
+  background:var(--white);border:1px solid var(--border);border-radius:var(--rl);
+  padding:24px;text-decoration:none;color:inherit;
+  display:flex;flex-direction:column;gap:10px;
+  transition:box-shadow 0.2s,transform 0.2s;
+}
+.art-card:hover{box-shadow:0 8px 32px rgba(11,29,53,0.10);transform:translateY(-3px)}
+.art-label{font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold)}
+.art-title{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--navy);line-height:1.4}
+.art-cta{font-size:12px;color:var(--text3);font-weight:500;margin-top:auto;display:flex;align-items:center;gap:4px}
+.art-cta svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* CERTS */
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:15px}
+.cert-card{
+  background:var(--white);border:1px solid var(--border);border-radius:var(--rl);
+  padding:18px 22px;display:flex;align-items:center;gap:14px;
+  text-decoration:none;color:inherit;transition:box-shadow 0.2s,transform 0.2s;
+}
+.cert-card:hover{box-shadow:0 6px 24px rgba(11,29,53,0.10);transform:translateY(-2px)}
+.cert-ico{width:38px;height:38px;border-radius:var(--r);background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cert-ico svg{width:20px;height:20px;stroke:var(--gold2);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.cert-ico.gold{background:var(--gold)}
+.cert-ico.gold svg{stroke:var(--navy)}
+.cert-name{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:2px}
+.cert-issuer{font-size:11px;color:var(--text3)}
+.cert-arr{margin-left:auto;color:var(--text3);flex-shrink:0}
+.cert-arr svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* FOOTER */
+footer{background:var(--navy);color:rgba(255,255,255,0.45);padding:40px 6vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-brand{font-family:var(--serif);font-size:16px;color:var(--cream)}
+.footer-brand span{color:var(--gold)}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap}
+.footer-links a{color:rgba(255,255,255,0.45);text-decoration:none;font-size:13px;transition:color 0.2s}
+.footer-links a:hover{color:var(--gold2)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  #hero{grid-template-columns:1fr;padding:88px 5vw 50px;gap:36px}
+  .hero-right{display:none}
+  .nav-links li:not(:last-child){display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">T.<span>R</span></div>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#writing">Writing</a></li>
+    <li><a href="mailto:rakhivhanithembu@gmail.com" class="nav-cta">Hire Me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div>
+    <div class="hero-tag">Open to graduate roles</div>
+    <h1>Thembuluwo<br><span class="accent">Rakhivhani</span></h1>
+    <div class="hero-sub">Full Stack Developer</div>
+    <p class="hero-bio">
+      I build and ship production systems used by real people at Wits University — from inventory platforms to claims pipelines. React, Node.js, Docker, MySQL. 1st place at the 2024 Wits Cloudathon.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="mailto:rakhivhanithembu@gmail.com" class="btn-outline">Get in Touch</a>
+    </div>
+    <div class="hero-links">
+      <a href="https://github.com/thembu" target="_blank" class="social-link" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/thembuluwo007" target="_blank" class="social-link" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="win-badge">
+      <div class="trophy">🏆</div>
+      <div>
+        <div class="win-title">1st Place — Wits Cloudathon 2024</div>
+        <div class="win-sub">Team Tech-9 · Legal access-to-justice mobile app</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <div>
+        <div class="stat-num">4</div>
+        <div class="stat-lbl">Production systems shipped at Wits</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      </div>
+      <div>
+        <div class="stat-num">5+</div>
+        <div class="stat-lbl">Languages in production</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-lbl">Industry certifications earned</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-label">// Projects</div>
+  <div class="sec-title">Things I've <span>Built & Shipped</span></div>
+  <div class="proj-grid">
+
+    <div class="proj-card">
+      <div class="proj-head">
+        <div class="proj-ico">
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        </div>
+        <div class="proj-ext-links">
+          <a href="http://sa-job-board-frontend-273366117594-af-south-1-an.s3-website.af-south-1.amazonaws.com/" target="_blank" class="ext-link" title="Live Demo" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-name">SA Job Board</div>
+        <p class="proj-desc">A full-stack job listing platform built for the South African developer market. Connects developers and employers through a clean, responsive interface — with real listings and application flows, deployed on AWS.</p>
+        <div class="tag-row">
+          <span class="tag live">Live</span>
+          <span class="tag">React</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">AWS S3</span>
+          <span class="tag">REST API</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-head">
+        <div class="proj-ico">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <div class="proj-ext-links">
+          <a href="http://sa-cv-screener-273366117594-af-south-1-an.s3-website.af-south-1.amazonaws.com/" target="_blank" class="ext-link" title="Live Demo" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-name">SA CV Screener</div>
+        <p class="proj-desc">An AI-powered CV screening tool for the South African job market. Parses CVs against job requirements and returns structured match scores and feedback — built to reduce friction for both job seekers and recruiters.</p>
+        <div class="tag-row">
+          <span class="tag live">Live</span>
+          <span class="tag">React</span>
+          <span class="tag">AI/NLP</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">AWS</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-head">
+        <div class="proj-ico">
+          <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        </div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-name">Lab Inventory Management System</div>
+        <p class="proj-desc">Production system at Wits Mathematical Sciences Support. Tracks laboratory devices across the department in real time. Secured with SSL via TENET/Sectigo certificates, reverse-proxied through Nginx, cached with Redis.</p>
+        <div class="tag-row">
+          <span class="tag prod">In Production</span>
+          <span class="tag">React</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">Redis</span>
+          <span class="tag">Nginx</span>
+          <span class="tag">Docker</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-head">
+        <div class="proj-ico">
+          <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-name">Claims Management System</div>
+        <p class="proj-desc">Role-based claims processing platform for Wits staff — separate portals for employees, managers, and admins. Containerised with Docker, secured with SSL, and deployed via automated CI/CD pipelines using Gitea and act_runner.</p>
+        <div class="tag-row">
+          <span class="tag prod">In Production</span>
+          <span class="tag">React</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">Docker</span>
+          <span class="tag">CI/CD</span>
+          <span class="tag">RBAC</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-head">
+        <div class="proj-ico">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-name">Postgraduate Onboarding System</div>
+        <p class="proj-desc">Automated the postgraduate student registration process at Wits, cutting manual overhead for academic staff. Built after direct requirements gathering with faculty — a real workflow problem, solved with a production deployment.</p>
+        <div class="tag-row">
+          <span class="tag prod">In Production</span>
+          <span class="tag">React</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">Docker</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card winner">
+      <div class="proj-head">
+        <div class="proj-ico gold">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-name">Legal Access App — Cloudathon 2024</div>
+        <p class="proj-desc">Won 1st place at the Wits Cloudathon 2024 with Team Tech-9. Built a mobile application connecting unemployed lawyers with people seeking pro bono legal representation — applying cloud and full-stack skills to a genuine access-to-justice problem in South Africa.</p>
+        <div class="tag-row">
+          <span class="tag win">🥇 1st Place</span>
+          <span class="tag">Mobile</span>
+          <span class="tag">Cloud</span>
+          <span class="tag">Full Stack</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sec-label">// Experience</div>
+  <div class="sec-title">Where I've <span>Worked</span></div>
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-dot now"></div>
+      <div class="tl-date">Sep 2024 – Present</div>
+      <div class="tl-role">Software Developer</div>
+      <div class="tl-org">Mathematical Sciences Support, Wits University</div>
+      <ul class="tl-list">
+        <li>Built and deployed a full-stack inventory management system (React, Node.js, MySQL, Redis, Nginx) to track lab devices across the department</li>
+        <li>Developed a claims management system with role-based access control for employees, managers, and admins — containerised with Docker and secured with SSL</li>
+        <li>Designed and implemented CI/CD pipelines using Gitea and act_runner to automate build and deployment on university infrastructure</li>
+        <li>Built a postgraduate student onboarding system, reducing manual registration overhead for academic staff</li>
+        <li>Configured Nginx as a reverse proxy and set up HTTPS using TENET/Sectigo certificates for production domains</li>
+        <li>Collaborated directly with academic and administrative stakeholders to gather requirements and ship production-ready solutions</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot" style="border-color:var(--gold);background:var(--gold)"></div>
+      <div class="tl-date">Aug 2024</div>
+      <div class="tl-role">🏆 1st Place — Wits Cloudathon</div>
+      <div class="tl-org">Team Tech-9 · Wits University</div>
+      <ul class="tl-list">
+        <li>Won first place among all competing teams by building a mobile app connecting unemployed lawyers with pro bono clients</li>
+        <li>Applied cloud engineering and full-stack skills to address a real access-to-justice problem in South Africa</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">Mar 2023 – Nov 2023</div>
+      <div class="tl-role">Mathematics Tutor</div>
+      <div class="tl-org">Tutoring Excellence</div>
+      <ul class="tl-list">
+        <li>Delivered one-on-one and group Mathematics tutoring, adapting methods to students with varying learning needs</li>
+        <li>Consistently improved learner performance and confidence across a diverse student base</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-label">// Skills</div>
+  <div class="sec-title">Tech <span>Stack</span></div>
+  <div class="skills-wrap">
+    <div class="skill-grp">
+      <div class="skill-grp-title">Languages</div>
+      <div class="skill-list">
+        <span class="skill-pill">JavaScript</span>
+        <span class="skill-pill">Python</span>
+        <span class="skill-pill">C#</span>
+        <span class="skill-pill">SQL</span>
+        <span class="skill-pill">C++</span>
+      </div>
+    </div>
+    <div class="skill-grp">
+      <div class="skill-grp-title">Frontend</div>
+      <div class="skill-list">
+        <span class="skill-pill">React</span>
+        <span class="skill-pill">HTML</span>
+        <span class="skill-pill">CSS</span>
+        <span class="skill-pill">Material UI</span>
+      </div>
+    </div>
+    <div class="skill-grp">
+      <div class="skill-grp-title">Backend</div>
+      <div class="skill-list">
+        <span class="skill-pill">Node.js</span>
+        <span class="skill-pill">Express.js</span>
+        <span class="skill-pill">REST API Design</span>
+      </div>
+    </div>
+    <div class="skill-grp">
+      <div class="skill-grp-title">Databases</div>
+      <div class="skill-list">
+        <span class="skill-pill">MySQL</span>
+        <span class="skill-pill">Firebase</span>
+        <span class="skill-pill">Firestore</span>
+        <span class="skill-pill">Redis</span>
+      </div>
+    </div>
+    <div class="skill-grp">
+      <div class="skill-grp-title">DevOps & Tools</div>
+      <div class="skill-list">
+        <span class="skill-pill">Docker</span>
+        <span class="skill-pill">Nginx</span>
+        <span class="skill-pill">Git</span>
+        <span class="skill-pill">CI/CD</span>
+        <span class="skill-pill">Linux</span>
+        <span class="skill-pill">AWS</span>
+      </div>
+    </div>
+    <div class="skill-grp">
+      <div class="skill-grp-title">Methodologies</div>
+      <div class="skill-list">
+        <span class="skill-pill">Agile</span>
+        <span class="skill-pill">Version Control</span>
+        <span class="skill-pill">Testing & Debugging</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WRITING -->
+<section id="writing">
+  <div class="sec-label">// Writing</div>
+  <div class="sec-title">Articles I've <span>Published</span></div>
+  <div class="articles-grid">
+    <a href="https://medium.com/@rakhivhanithembu/i-am-building-a-system-to-get-myself-hired-heres-how-it-works-f92eb60e67e1" target="_blank" class="art-card" rel="noopener">
+      <div class="art-label">Medium · Build Log</div>
+      <div class="art-title">I'm Building a System to Get Myself Hired — Here's How It Works</div>
+      <div class="art-cta">Read on Medium <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+    <a href="https://medium.com/@rakhivhanithembu/the-job-board-2a5bcd33f93f" target="_blank" class="art-card" rel="noopener">
+      <div class="art-label">Medium · Project Deep Dive</div>
+      <div class="art-title">The Job Board — Building a Platform for South African Developers</div>
+      <div class="art-cta">Read on Medium <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+    <a href="https://medium.com/@2695831/7842adf23ba1" target="_blank" class="art-card" rel="noopener">
+      <div class="art-label">Medium · Dev Journal</div>
+      <div class="art-title">Shipping Real Systems — What Working at a University Lab Taught Me</div>
+      <div class="art-cta">Read on Medium <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs" style="background:var(--cream2)">
+  <div class="sec-label">// Certifications</div>
+  <div class="sec-title">Credentials & <span>Achievements</span></div>
+  <div class="certs-grid">
+    <a href="https://www.hackerrank.com/certificates/1b3eadd36db6" target="_blank" class="cert-card" rel="noopener">
+      <div class="cert-ico">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div>
+        <div class="cert-name">Python Certificate</div>
+        <div class="cert-issuer">HackerRank</div>
+      </div>
+      <div class="cert-arr"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+    <a href="https://www.hackerrank.com/certificates/c1f4d78923d7" target="_blank" class="cert-card" rel="noopener">
+      <div class="cert-ico">
+        <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      </div>
+      <div>
+        <div class="cert-name">JavaScript Intermediate</div>
+        <div class="cert-issuer">HackerRank</div>
+      </div>
+      <div class="cert-arr"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+    <div class="cert-card">
+      <div class="cert-ico gold">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <div>
+        <div class="cert-name">AWS Cloud Quest: Cloud Practitioner</div>
+        <div class="cert-issuer">Wits Dev Society · Aug 2024</div>
+      </div>
+    </div>
+    <div class="cert-card" style="border-color:rgba(200,168,75,0.4)">
+      <div style="font-size:28px;flex-shrink:0">🏆</div>
+      <div>
+        <div class="cert-name">1st Place — Wits Cloudathon 2024</div>
+        <div class="cert-issuer">Wits University · Aug 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">Thembuluwo <span>Rakhivhani</span></div>
+  <div class="footer-links">
+    <a href="https://github.com/thembu" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.linkedin.com/in/thembuluwo007" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="mailto:rakhivhanithembu@gmail.com">rakhivhanithembu@gmail.com</a>
+    <a href="tel:+27632539233">+27 63 253 9233</a>
+  </div>
+</footer>
+
+</body>
+</html>

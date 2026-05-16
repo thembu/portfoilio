@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>rakhivhani.dev</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080C10;
+  --bg2:#0D1117;
+  --bg3:#161B22;
+  --bg4:#1C2230;
+  --green:#00FF88;
+  --green2:#00CC6A;
+  --green3:rgba(0,255,136,0.12);
+  --green4:rgba(0,255,136,0.06);
+  --cyan:#00E5FF;
+  --cyan2:rgba(0,229,255,0.12);
+  --amber:#FFB800;
+  --red:#FF4757;
+  --white:#E6EDF3;
+  --muted:#7D8590;
+  --muted2:#484F58;
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(0,255,136,0.2);
+  --mono:'JetBrains Mono',monospace;
+  --sans:'Space Grotesk',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--white);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* SCANLINE overlay */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);
+  pointer-events:none;z-index:9999;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  background:rgba(8,12,16,0.88);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5vw;height:58px;
+}
+.nav-logo{
+  font-family:var(--mono);font-size:14px;font-weight:500;
+  color:var(--green);letter-spacing:0.05em;
+  display:flex;align-items:center;gap:8px;
+}
+.nav-logo::before{content:'>';color:var(--muted);margin-right:2px}
+.nav-links{display:flex;gap:28px;list-style:none;align-items:center}
+.nav-links a{
+  font-family:var(--mono);font-size:12px;
+  color:var(--muted);text-decoration:none;
+  letter-spacing:0.06em;transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--green)}
+.nav-links a::before{content:'./';color:var(--muted2);font-size:11px}
+.hire-btn{
+  font-family:var(--mono)!important;font-size:11px!important;
+  background:transparent!important;color:var(--green)!important;
+  border:1px solid var(--border2)!important;
+  padding:6px 16px!important;border-radius:3px!important;
+  letter-spacing:0.1em!important;cursor:pointer;
+  transition:background 0.2s,box-shadow 0.2s!important;
+}
+.hire-btn:hover{background:var(--green3)!important;box-shadow:0 0 16px rgba(0,255,136,0.15)!important}
+.hire-btn::before{content:none!important}
+
+/* HERO */
+#hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:80px 5vw 60px;
+  position:relative;overflow:hidden;
+}
+.grid-bg{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,255,136,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,255,136,0.04) 1px,transparent 1px);
+  background-size:50px 50px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 100%);
+}
+.glow-orb{
+  position:absolute;top:-100px;right:-100px;
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,255,136,0.08) 0%,transparent 65%);
+  pointer-events:none;
+}
+.glow-orb2{
+  position:absolute;bottom:-150px;left:-50px;
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,229,255,0.05) 0%,transparent 65%);
+  pointer-events:none;
+}
+
+.hero-inner{position:relative;z-index:2;max-width:900px}
+.terminal-line{
+  font-family:var(--mono);font-size:13px;color:var(--muted);
+  margin-bottom:28px;display:flex;align-items:center;gap:10px;
+}
+.prompt{color:var(--green);font-weight:500}
+.cmd{color:var(--white)}
+.cursor{
+  display:inline-block;width:2px;height:14px;
+  background:var(--green);margin-left:2px;
+  animation:blink 1s step-end infinite;vertical-align:middle;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+h1{
+  font-family:var(--mono);
+  font-size:clamp(32px,6vw,72px);
+  font-weight:700;line-height:1;
+  color:var(--white);
+  margin-bottom:6px;
+  letter-spacing:-1px;
+}
+h1 .g{color:var(--green)}
+.hero-role{
+  font-family:var(--mono);
+  font-size:clamp(16px,2.5vw,24px);
+  color:var(--muted);font-weight:300;
+  margin-bottom:32px;
+  letter-spacing:0.02em;
+}
+.hero-role span{color:var(--cyan)}
+
+.hero-desc{
+  font-family:var(--sans);font-size:16px;
+  color:var(--muted);max-width:560px;
+  line-height:1.75;margin-bottom:40px;
+}
+.hero-desc strong{color:var(--white);font-weight:500}
+
+.hero-btns{display:flex;gap:14px;margin-bottom:48px;flex-wrap:wrap}
+.btn-green{
+  font-family:var(--mono);font-size:12px;letter-spacing:0.08em;
+  background:var(--green);color:var(--bg);
+  padding:12px 24px;border-radius:3px;
+  text-decoration:none;font-weight:700;
+  transition:box-shadow 0.2s,transform 0.15s;display:inline-block;
+}
+.btn-green:hover{box-shadow:0 0 24px rgba(0,255,136,0.4);transform:translateY(-1px)}
+.btn-ghost{
+  font-family:var(--mono);font-size:12px;letter-spacing:0.08em;
+  background:transparent;color:var(--green);
+  border:1px solid var(--border2);
+  padding:12px 24px;border-radius:3px;
+  text-decoration:none;font-weight:500;
+  transition:background 0.2s,box-shadow 0.2s;display:inline-block;
+}
+.btn-ghost:hover{background:var(--green3);box-shadow:0 0 16px rgba(0,255,136,0.1)}
+
+.hero-socials{display:flex;gap:24px}
+.soc-link{
+  font-family:var(--mono);font-size:12px;
+  color:var(--muted);text-decoration:none;
+  display:flex;align-items:center;gap:7px;
+  letter-spacing:0.06em;transition:color 0.2s;
+}
+.soc-link:hover{color:var(--green)}
+.soc-link svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* STATS BAR */
+.stats-bar{
+  display:flex;gap:0;
+  border:1px solid var(--border);border-radius:6px;
+  overflow:hidden;margin-top:60px;
+  background:var(--bg2);
+}
+.stat-seg{
+  flex:1;padding:18px 24px;
+  border-right:1px solid var(--border);
+  position:relative;
+}
+.stat-seg:last-child{border-right:none}
+.stat-seg-num{
+  font-family:var(--mono);font-size:28px;font-weight:700;
+  color:var(--green);line-height:1;margin-bottom:4px;
+}
+.stat-seg-lbl{font-size:12px;color:var(--muted);font-weight:400}
+.stat-seg.win .stat-seg-num{color:var(--amber)}
+
+/* SECTION */
+section{padding:80px 5vw;position:relative}
+.sec-head{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--green);
+  margin-bottom:10px;display:flex;align-items:center;gap:10px;
+}
+.sec-head::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--border2),transparent);max-width:300px}
+.sec-title{
+  font-size:clamp(22px,3vw,34px);font-weight:700;
+  color:var(--white);margin-bottom:48px;letter-spacing:-0.5px;
+}
+.sec-title span{color:var(--green)}
+
+/* PROJECTS */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.proj-card{
+  background:var(--bg2);padding:28px;
+  display:flex;flex-direction:column;gap:0;
+  transition:background 0.2s;
+  position:relative;overflow:hidden;
+}
+.proj-card::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,var(--green2),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.proj-card:hover{background:var(--bg3)}
+.proj-card:hover::before{opacity:1}
+.proj-card.featured{background:var(--bg3)}
+.proj-card.featured::before{opacity:0.5}
+.proj-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px}
+.proj-num{font-family:var(--mono);font-size:11px;color:var(--muted2);letter-spacing:0.08em}
+.proj-badges{display:flex;gap:6px}
+.badge{
+  font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;
+  padding:3px 8px;border-radius:2px;font-weight:500;
+}
+.badge.live{background:rgba(0,255,136,0.12);color:var(--green);border:1px solid rgba(0,255,136,0.2)}
+.badge.prod{background:rgba(0,229,255,0.10);color:var(--cyan);border:1px solid rgba(0,229,255,0.2)}
+.badge.win{background:rgba(255,184,0,0.12);color:var(--amber);border:1px solid rgba(255,184,0,0.25)}
+.proj-name{
+  font-family:var(--mono);font-size:16px;font-weight:700;
+  color:var(--white);margin-bottom:10px;letter-spacing:-0.2px;
+}
+.proj-desc{font-size:13.5px;color:var(--muted);line-height:1.7;flex:1;margin-bottom:20px}
+.proj-stack{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.stack-tag{
+  font-family:var(--mono);font-size:10px;
+  color:var(--muted2);background:var(--bg4);
+  border:1px solid var(--border);
+  padding:3px 9px;border-radius:2px;
+  transition:color 0.2s,border-color 0.2s;
+}
+.proj-card:hover .stack-tag{color:var(--muted);border-color:rgba(255,255,255,0.1)}
+.proj-links{display:flex;gap:12px}
+.proj-link{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.06em;
+  color:var(--green);text-decoration:none;
+  display:flex;align-items:center;gap:5px;
+  transition:color 0.2s;
+}
+.proj-link:hover{color:var(--white)}
+.proj-link svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.proj-link.muted{color:var(--muted)}
+.proj-link.muted:hover{color:var(--white)}
+
+/* TIMELINE */
+.tl{position:relative;padding-left:28px}
+.tl::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:1px;background:linear-gradient(to bottom,var(--green2),rgba(0,255,136,0.0))}
+.tl-item{position:relative;margin-bottom:52px}
+.tl-item:last-child{margin-bottom:0}
+.tl-dot{position:absolute;left:-32px;top:8px;width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 10px rgba(0,255,136,0.5)}
+.tl-dot.dim{background:var(--muted2);box-shadow:none}
+.tl-dot.gold{background:var(--amber);box-shadow:0 0 10px rgba(255,184,0,0.5)}
+.tl-meta{font-family:var(--mono);font-size:11px;color:var(--muted2);margin-bottom:6px;letter-spacing:0.06em}
+.tl-role{font-size:19px;font-weight:700;color:var(--white);margin-bottom:3px}
+.tl-org{font-family:var(--mono);font-size:12px;color:var(--green);margin-bottom:14px;letter-spacing:0.04em}
+.tl-org.gold{color:var(--amber)}
+.tl-bullets{list-style:none;display:flex;flex-direction:column;gap:8px}
+.tl-bullets li{
+  font-size:14px;color:var(--muted);padding-left:20px;
+  position:relative;line-height:1.65;
+}
+.tl-bullets li::before{
+  content:'//';position:absolute;left:0;
+  font-family:var(--mono);font-size:11px;color:var(--muted2);top:2px;
+}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.skill-grp{background:var(--bg2);padding:22px 24px}
+.skill-grp-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--green);margin-bottom:14px;
+  display:flex;align-items:center;gap:8px;
+}
+.skill-grp-label::before{content:'#';color:var(--muted2)}
+.skill-tags{display:flex;flex-wrap:wrap;gap:7px}
+.s-tag{
+  font-family:var(--mono);font-size:11px;
+  color:var(--muted);background:var(--bg4);
+  border:1px solid var(--border);
+  padding:4px 10px;border-radius:2px;
+  transition:color 0.2s,border-color 0.2s;
+}
+.s-tag:hover{color:var(--green);border-color:var(--border2)}
+
+/* ARTICLES */
+.art-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.art-card{
+  background:var(--bg2);padding:26px;text-decoration:none;color:inherit;
+  display:flex;flex-direction:column;gap:10px;
+  transition:background 0.2s;
+}
+.art-card:hover{background:var(--bg3)}
+.art-idx{font-family:var(--mono);font-size:11px;color:var(--muted2)}
+.art-title{font-size:15px;font-weight:600;color:var(--white);line-height:1.4}
+.art-read{
+  font-family:var(--mono);font-size:11px;color:var(--green);
+  margin-top:auto;display:flex;align-items:center;gap:5px;letter-spacing:0.04em;
+}
+.art-read svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* CERTS */
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.cert-card{
+  background:var(--bg2);padding:20px 22px;
+  display:flex;align-items:center;gap:14px;
+  text-decoration:none;color:inherit;
+  transition:background 0.2s;
+}
+.cert-card:hover{background:var(--bg3)}
+.cert-icon{
+  width:36px;height:36px;border-radius:3px;
+  background:var(--bg4);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.cert-icon svg{width:18px;height:18px;stroke:var(--green);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.cert-icon.amber svg{stroke:var(--amber)}
+.cert-n{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--white);margin-bottom:2px;line-height:1.3}
+.cert-i{font-family:var(--mono);font-size:10px;color:var(--muted2)}
+.cert-ext{margin-left:auto;color:var(--muted2)}
+.cert-ext svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* FOOTER */
+footer{
+  border-top:1px solid var(--border);
+  padding:32px 5vw;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+  background:var(--bg2);
+}
+.footer-mono{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.footer-mono span{color:var(--green)}
+.footer-links{display:flex;gap:20px}
+.footer-links a{font-family:var(--mono);font-size:11px;color:var(--muted2);text-decoration:none;letter-spacing:0.06em;transition:color 0.2s}
+.footer-links a:hover{color:var(--green)}
+
+/* DIVIDERS */
+.section-divider{height:1px;background:linear-gradient(to right,transparent,var(--border),transparent);margin:0}
+
+@media(max-width:768px){
+  .stats-bar{flex-direction:column;gap:0}
+  .stat-seg{border-right:none;border-bottom:1px solid var(--border)}
+  .stat-seg:last-child{border-bottom:none}
+  .nav-links li:not(:last-child){display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">rakhivhani.dev</div>
+  <ul class="nav-links">
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#skills">stack</a></li>
+    <li><a href="#writing">writing</a></li>
+    <li><a href="mailto:rakhivhanithembu@gmail.com" class="hire-btn">hire_me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="grid-bg"></div>
+  <div class="glow-orb"></div>
+  <div class="glow-orb2"></div>
+
+  <div class="hero-inner">
+    <div class="terminal-line">
+      <span class="prompt">thembu@dev:~$</span>
+      <span class="cmd">whoami --verbose</span>
+      <span class="cursor"></span>
+    </div>
+
+    <h1>Thembuluwo<br><span class="g">Rakhivhani</span></h1>
+    <div class="hero-role">// <span>Full Stack Developer</span> · Wits University · Johannesburg</div>
+
+    <p class="hero-desc">
+      I build and ship <strong>production systems</strong> used by real people at Wits University — inventory platforms, claims pipelines, onboarding flows. React, Node.js, Docker, MySQL in production. <strong>🏆 1st place, Wits Cloudathon 2024.</strong>
+    </p>
+
+    <div class="hero-btns">
+      <a href="#projects" class="btn-green">./view_projects</a>
+      <a href="mailto:rakhivhanithembu@gmail.com" class="btn-ghost">./contact_me</a>
+    </div>
+
+    <div class="hero-socials">
+      <a href="https://github.com/thembu" target="_blank" class="soc-link" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        github
+      </a>
+      <a href="https://www.linkedin.com/in/thembuluwo007" target="_blank" class="soc-link" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        linkedin
+      </a>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-seg">
+      <div class="stat-seg-num">4</div>
+      <div class="stat-seg-lbl">production systems shipped</div>
+    </div>
+    <div class="stat-seg">
+      <div class="stat-seg-num">5+</div>
+      <div class="stat-seg-lbl">languages in production</div>
+    </div>
+    <div class="stat-seg">
+      <div class="stat-seg-num">3</div>
+      <div class="stat-seg-lbl">industry certifications</div>
+    </div>
+    <div class="stat-seg win">
+      <div class="stat-seg-num">🏆 #1</div>
+      <div class="stat-seg-lbl">Wits Cloudathon 2024</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-head">01 // projects</div>
+  <div class="sec-title">Things I've <span>Built & Shipped</span></div>
+  <div class="proj-grid">
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <span class="proj-num">project_01</span>
+        <div class="proj-badges"><span class="badge live">LIVE</span></div>
+      </div>
+      <div class="proj-name">SA Job Board</div>
+      <p class="proj-desc">Full-stack job listing platform for the South African developer market. Connects developers and employers through a clean, responsive interface with real-time listings and application flows — deployed on AWS S3.</p>
+      <div class="proj-stack">
+        <span class="stack-tag">React</span>
+        <span class="stack-tag">Node.js</span>
+        <span class="stack-tag">AWS S3</span>
+        <span class="stack-tag">REST API</span>
+      </div>
+      <div class="proj-links">
+        <a href="http://sa-job-board-frontend-273366117594-af-south-1-an.s3-website.af-south-1.amazonaws.com/" target="_blank" class="proj-link" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          live_demo
+        </a>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <span class="proj-num">project_02</span>
+        <div class="proj-badges"><span class="badge live">LIVE</span></div>
+      </div>
+      <div class="proj-name">SA CV Screener</div>
+      <p class="proj-desc">AI-powered CV screening tool for the South African job market. Parses CVs against job requirements and returns structured match scores and feedback — built to reduce hiring friction for both job seekers and recruiters.</p>
+      <div class="proj-stack">
+        <span class="stack-tag">React</span>
+        <span class="stack-tag">Node.js</span>
+        <span class="stack-tag">AI/NLP</span>
+        <span class="stack-tag">AWS</span>
+      </div>
+      <div class="proj-links">
+        <a href="http://sa-cv-screener-273366117594-af-south-1-an.s3-website.af-south-1.amazonaws.com/" target="_blank" class="proj-link" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          live_demo
+        </a>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <span class="proj-num">project_03</span>
+        <div class="proj-badges"><span class="badge prod">IN PROD</span></div>
+      </div>
+      <div class="proj-name">Lab Inventory System</div>
+      <p class="proj-desc">Production system at Wits Mathematical Sciences Support. Real-time tracking of lab devices across the department. SSL via TENET/Sectigo, reverse-proxied through Nginx, Redis caching for performance.</p>
+      <div class="proj-stack">
+        <span class="stack-tag">React</span>
+        <span class="stack-tag">Node.js</span>
+        <span class="stack-tag">MySQL</span>
+        <span class="stack-tag">Redis</span>
+        <span class="stack-tag">Nginx</span>
+        <span class="stack-tag">Docker</span>
+      </div>
+      <div class="proj-links">
+        <span class="proj-link muted">// internal deployment — no public link</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <span class="proj-num">project_04</span>
+        <div class="proj-badges"><span class="badge prod">IN PROD</span></div>
+      </div>
+      <div class="proj-name">Claims Management System</div>
+      <p class="proj-desc">Role-based claims processing platform for Wits staff — separate portals for employees, managers, and admins. Containerised with Docker. CI/CD via Gitea and act_runner for automated builds on university infrastructure.</p>
+      <div class="proj-stack">
+        <span class="stack-tag">React</span>
+        <span class="stack-tag">Node.js</span>
+        <span class="stack-tag">Docker</span>
+        <span class="stack-tag">CI/CD</span>
+        <span class="stack-tag">Gitea</span>
+        <span class="stack-tag">RBAC</span>
+      </div>
+      <div class="proj-links">
+        <span class="proj-link muted">// internal deployment — no public link</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <span class="proj-num">project_05</span>
+        <div class="proj-badges"><span class="badge prod">IN PROD</span></div>
+      </div>
+      <div class="proj-name">Postgraduate Onboarding System</div>
+      <p class="proj-desc">Automated the postgraduate student registration process at Wits. Cut manual overhead for academic staff. Built after direct requirements gathering with faculty — a real workflow problem solved and deployed.</p>
+      <div class="proj-stack">
+        <span class="stack-tag">React</span>
+        <span class="stack-tag">Node.js</span>
+        <span class="stack-tag">MySQL</span>
+        <span class="stack-tag">Docker</span>
+      </div>
+      <div class="proj-links">
+        <span class="proj-link muted">// internal deployment — no public link</span>
+      </div>
+    </div>
+
+    <div class="proj-card featured">
+      <div class="proj-top">
+        <span class="proj-num">project_06</span>
+        <div class="proj-badges"><span class="badge win">🥇 1ST PLACE</span></div>
+      </div>
+      <div class="proj-name">Legal Access App — Cloudathon 2024</div>
+      <p class="proj-desc">Won 1st place at the Wits Cloudathon 2024 with Team Tech-9. Built a mobile application connecting unemployed lawyers with people seeking pro bono legal representation — cloud engineering applied to a real access-to-justice problem in South Africa.</p>
+      <div class="proj-stack">
+        <span class="stack-tag">Mobile</span>
+        <span class="stack-tag">Cloud</span>
+        <span class="stack-tag">Full Stack</span>
+      </div>
+      <div class="proj-links">
+        <span class="proj-link muted">// Wits Cloudathon · Aug 2024</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sec-head">02 // experience</div>
+  <div class="sec-title">Where I've <span>Worked</span></div>
+  <div class="tl">
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-meta">Sep 2024 → present</div>
+      <div class="tl-role">Software Developer</div>
+      <div class="tl-org">Mathematical Sciences Support · Wits University</div>
+      <ul class="tl-bullets">
+        <li>Built and deployed a full-stack inventory management system (React, Node.js, MySQL, Redis, Nginx) to track lab devices across the department in real time</li>
+        <li>Developed a claims management system with role-based access control for employees, managers, and admins — containerised with Docker, secured with HTTPS</li>
+        <li>Designed CI/CD pipelines using Gitea and act_runner to automate build and deployment on university servers</li>
+        <li>Built a postgraduate student onboarding system after direct requirements gathering with faculty, reducing manual admin overhead</li>
+        <li>Configured Nginx reverse proxy and set up SSL via TENET/Sectigo certificates for production domains</li>
+        <li>Collaborated directly with academic and administrative stakeholders across multiple live deployments</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot gold"></div>
+      <div class="tl-meta">Aug 2024</div>
+      <div class="tl-role">🏆 1st Place — Wits Cloudathon</div>
+      <div class="tl-org gold">Team Tech-9 · Wits University</div>
+      <ul class="tl-bullets">
+        <li>Won first place among all competing teams by developing a mobile app connecting unemployed lawyers with pro bono clients</li>
+        <li>Applied cloud engineering and full-stack skills to a real social access-to-justice problem in South Africa</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot dim"></div>
+      <div class="tl-meta">Mar 2023 → Nov 2023</div>
+      <div class="tl-role">Mathematics Tutor</div>
+      <div class="tl-org">Tutoring Excellence</div>
+      <ul class="tl-bullets">
+        <li>Delivered one-on-one and group Mathematics tutoring, adapting to students with varying learning needs</li>
+        <li>Improved learner performance and confidence across a diverse student base</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-head">03 // stack</div>
+  <div class="sec-title">Tech <span>Stack</span></div>
+  <div class="skills-grid">
+    <div class="skill-grp">
+      <div class="skill-grp-label">languages</div>
+      <div class="skill-tags">
+        <span class="s-tag">JavaScript</span>
+        <span class="s-tag">Python</span>
+        <span class="s-tag">C#</span>
+        <span class="s-tag">SQL</span>
+        <span class="s-tag">C++</span>
+      </div>
+    </div>
+    <div class="skill-grp">
+      <div class="skill-grp-label">frontend</div>
+      <div class="skill-tags">
+        <span class="s-tag">React</span>
+        <span class="s-tag">HTML</span>
+        <span class="s-tag">CSS</span>
+        <span class="s-tag">Material UI</span>
+      </div>
+    </div>
+    <div class="skill-grp">
+      <div class="skill-grp-label">backend</div>
+      <div class="skill-tags">
+        <span class="s-tag">Node.js</span>
+        <span class="s-tag">Express.js</span>
+        <span class="s-tag">REST API</span>
+      </div>
+    </div>
+    <div class="skill-grp">
+      <div class="skill-grp-label">databases</div>
+      <div class="skill-tags">
+        <span class="s-tag">MySQL</span>
+        <span class="s-tag">Firebase</span>
+        <span class="s-tag">Firestore</span>
+        <span class="s-tag">Redis</span>
+      </div>
+    </div>
+    <div class="skill-grp">
+      <div class="skill-grp-label">devops</div>
+      <div class="skill-tags">
+        <span class="s-tag">Docker</span>
+        <span class="s-tag">Nginx</span>
+        <span class="s-tag">Git</span>
+        <span class="s-tag">CI/CD</span>
+        <span class="s-tag">Linux</span>
+        <span class="s-tag">AWS</span>
+      </div>
+    </div>
+    <div class="skill-grp">
+      <div class="skill-grp-label">methodology</div>
+      <div class="skill-tags">
+        <span class="s-tag">Agile</span>
+        <span class="s-tag">Version Control</span>
+        <span class="s-tag">Testing</span>
+        <span class="s-tag">Debugging</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- WRITING -->
+<section id="writing">
+  <div class="sec-head">04 // writing</div>
+  <div class="sec-title">Articles I've <span>Published</span></div>
+  <div class="art-grid">
+    <a href="https://medium.com/@rakhivhanithembu/i-am-building-a-system-to-get-myself-hired-heres-how-it-works-f92eb60e67e1" target="_blank" class="art-card" rel="noopener">
+      <div class="art-idx">article_01 · Build Log</div>
+      <div class="art-title">I'm Building a System to Get Myself Hired — Here's How It Works</div>
+      <div class="art-read">read_on_medium <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+    <a href="https://medium.com/@rakhivhanithembu/the-job-board-2a5bcd33f93f" target="_blank" class="art-card" rel="noopener">
+      <div class="art-idx">article_02 · Project Deep Dive</div>
+      <div class="art-title">The Job Board — Building a Platform for South African Developers</div>
+      <div class="art-read">read_on_medium <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+    <a href="https://medium.com/@2695831/7842adf23ba1" target="_blank" class="art-card" rel="noopener">
+      <div class="art-idx">article_03 · Dev Journal</div>
+      <div class="art-title">Shipping Real Systems — What Working at a University Lab Taught Me</div>
+      <div class="art-read">read_on_medium <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CERTS -->
+<section id="certs">
+  <div class="sec-head">05 // credentials</div>
+  <div class="sec-title">Certifications & <span>Achievements</span></div>
+  <div class="certs-grid">
+    <a href="https://www.hackerrank.com/certificates/1b3eadd36db6" target="_blank" class="cert-card" rel="noopener">
+      <div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div>
+        <div class="cert-n">Python Certificate</div>
+        <div class="cert-i">HackerRank</div>
+      </div>
+      <div class="cert-ext"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+    <a href="https://www.hackerrank.com/certificates/c1f4d78923d7" target="_blank" class="cert-card" rel="noopener">
+      <div class="cert-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+      <div>
+        <div class="cert-n">JavaScript Intermediate</div>
+        <div class="cert-i">HackerRank</div>
+      </div>
+      <div class="cert-ext"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+    <div class="cert-card">
+      <div class="cert-icon amber"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+      <div>
+        <div class="cert-n">AWS Cloud Quest: Cloud Practitioner</div>
+        <div class="cert-i">Wits Dev Society · Aug 2024</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div style="font-size:24px;flex-shrink:0">🏆</div>
+      <div>
+        <div class="cert-n">1st Place — Wits Cloudathon 2024</div>
+        <div class="cert-i">Wits University · Aug 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-mono">// <span>rakhivhani.dev</span> · built with intention</div>
+  <div class="footer-links">
+    <a href="https://github.com/thembu" target="_blank" rel="noopener">github</a>
+    <a href="https://linkedin.com/in/thembuluwo007" target="_blank" rel="noopener">linkedin</a>
+    <a href="mailto:rakhivhanithembu@gmail.com">rakhivhanithembu@gmail.com</a>
+    <a href="tel:+27632539233">+27 63 253 9233</a>
+  </div>
+</footer>
+
+</body>
+</html>
